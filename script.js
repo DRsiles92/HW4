@@ -95,20 +95,74 @@ function clearStatusClass(element){
 
 var questions = [
     {
-        question: 'what is 2+2',
+        question: 'What are variables used for in JavaScript Programs?',
         answers: [
-            { text: '4', correct: true },
-            { text: '22', correct: false }
+            { text: 'Storing numbers, dates, or other values', correct: true },
+            { text: 'Varying randomly', correct: false },
+            { text: 'Causing high-school algebra flashbacks', correct: false },
+            { text: 'None of the above', correct: false },
+
         ]
         
     },
     {
         question: 'When a user views a page containing a JavaScript program, which machine actually executes the script?',
         answers: [
-            { text: 'd', correct: true },
-            { text: 'f', correct: false }
+            { text: 'A. The Users machine running a Web browser', correct: true },
+            { text: 'B. The Web server', correct: false },
+            { text: 'C.  A central machine deep within Netscapes corporate offices', correct: false},
+            { text: 'D.  None of the above', correct: false}
         ]
         
     },
-    
+    {
+        question: 'Which of the following are capabilities of functions in JavaScript?',
+        answers: [
+            { text: 'Return a value', correct: false },
+            { text: 'Accept parameters and Return a value', correct: false },
+            { text: 'Accept parameters', correct: true},
+            { text: 'None of the above', correct: false}
+        ]
+        
+    },
+    {
+        question: '______ tag is an extension to HTML that can enclose any number of JavaScript statements.',
+        answers: [
+            { text: '<BODY>', correct: false },
+            { text: '<SCRIPT>', correct: true },
+            { text: '<HEAD>', correct: false},
+            { text: '<TITLE>', correct: false}
+        ]
+        
+    },
+    {
+        question: 'Using _______ statement is how you test for a specific condition.',
+        answers: [
+            { text: 'Select', correct: false },
+            { text: 'Switch', correct: false },
+            { text: 'For', correct: false},
+            { text: 'If', correct: true}
+        ]
+        
+    },
+    {
+        question: 'Which one is not an operator',
+        answers: [
+            { text: '===', correct: false },
+            { text: '==', correct: false },
+            { text: '>', correct: false},
+            { text: '&', correct: true}
+        ]
+        
+    },
+    {
+        question: 'Which one is not a Javascript loop?',
+        answers: [
+            { text: 'while-do', correct: true },
+            { text: 'do-while', correct: false },
+            { text: 'while', correct: false},
+            { text: 'for', correct: false}
+        ]
+        
+    } 
 ]
