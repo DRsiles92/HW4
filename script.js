@@ -2,6 +2,7 @@
 
 var startButtonEl = document.getElementById('start-btn');
 var nextButtonEl = document.getElementById('next-btn');
+var resultsEl = document.getElementById('results');
 var questionContainerEl = document.getElementById('question-container');
 startButtonEl.addEventListener('click', startGame);
 var questionEl = document.getElementById('question');
@@ -54,12 +55,18 @@ function reset(){
     while (answerBtnEl.firstChild){ //loop through 
         answerBtnEl.removeChild(answerBtnEl.firstChild);
     }
+    resultsEl.innerText = '';
 }
 
 function selectAnswer(e) {
     var selectABtn = e.target;
     var correct = selectABtn.dataset.correct;
     setStatusClass(document.body, correct)
+    if (correct){
+        resultsEl.innerText = 'Correct!';
+    } else {
+        resultsEl.innerText = 'Incorrect!';
+    }
     Array.from(answerBtnEl.children).forEach(button =>{
         setStatusClass(button, button.dataset.correct)
     })
@@ -74,6 +81,7 @@ function selectAnswer(e) {
 function setStatusClass(element, correct){
     clearStatusClass(element)
     if(correct){
+        
         element.classList.add('correct')
     } else {
         element.classList.add('wrong');
