@@ -16,7 +16,10 @@
     width: 20%;
     font-size: 14px;
 }
-
+#finalScore{
+    text-align: center;
+    padding-bottom: 12px;
+}
 #timer{
     position: fixed;
     top: 0;
@@ -77,6 +80,17 @@ body.wrong{
   background-color: white;
   outline: none;
   font-size: 18px;
+}
+#submit{
+   
+    font-size: 12px;
+    border-width: 3px;
+    border-color: lavender;
+}
+
+#nameEntry{
+    text-align: center;
+    padding-bottom: 18px;
 }
 
 .btn:hover {
