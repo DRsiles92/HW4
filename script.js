@@ -8,14 +8,17 @@ var questionContainerEl = document.getElementById('question-container');
 startButtonEl.addEventListener('click', startGame);
 var questionEl = document.getElementById('question');
 var answerBtnEl = document.getElementById('answer-buttons');
-var nameEntryEl = document.getElementById('nameEntry');
-
-
+var nameEntryEl = document.getElementById('name-entry');
+var nameForm = document.querySelector("#name-form");
+var enterBtnEl = document.getElementById("enter-btn");
+var timerEl = document.getElementById('timer');
+var savedHighscore = [];
 nextButtonEl.addEventListener('click', () =>{
     currentQuestionsIndex++
     NextQuestion();
 })
 
+var finalScore = 0;
 
 var shuffledQuestions, currentQuestionsIndex;
 // variables end 
@@ -26,8 +29,28 @@ function startGame() {
     shuffledQuestions = questions.sort(() => Math.random() - .5); //generate random number to shuffle up questions
     currentQuestionsIndex = 0;
     questionContainerEl.classList.remove('hide');
+    // timerFunction();
     NextQuestion();
+
 }
+
+// function timerFunction(){
+// //timer
+// var timeLeft = questions.length * 15;
+// var timeInterval = setInterval(function () {
+//     timerEl.textContent = ("Time: ") + timeLeft;
+//     timeLeft--;
+//     // timerText.textContent = "";
+//     if (timeLeft === 0) {
+//         timerEl.textContent = "Time: 0";
+//         clearInterval(timeInterval);
+//     }
+//     if  (gameEnd === true) {
+//         clearInterval(timeInterval);
+//     }
+// }, 1000);
+// //end time
+
 
 function NextQuestion() {
     reset();
@@ -55,7 +78,9 @@ function showQuestion(question) {
 function reset(){
     clearStatusClass(document.body);
     console.log('reset');
+    finalScore = 0;
     nameEntryEl.classList.add('hide');
+    enterBtnEl.classList.add('hide');
     finalScoreEl.classList.add('hide');
     nextButtonEl.classList.add('hide'); //hide next button
     while (answerBtnEl.firstChild){ //loop through 
@@ -70,8 +95,12 @@ function selectAnswer(e) {
     setStatusClass(document.body, correct)
     if (correct){
         resultsEl.innerText = 'Correct!';
+        finalScore++;
+        timerEl.innerText = 'Score: ' + finalScore;
     } else {
         resultsEl.innerText = 'Incorrect!';
+        timerEl.innerText = 'Score: ' + finalScore;
+        console.log(finalScore);
     }
     Array.from(answerBtnEl.children).forEach(button =>{
         setStatusClass(button, button.dataset.correct)
@@ -79,25 +108,78 @@ function selectAnswer(e) {
     if(shuffledQuestions.length > currentQuestionsIndex + 1){ //if there is more questions 
     nextButtonEl.classList.remove('hide');
     } else {
+        if (correct){
+            finalScore++;
+            timerEl.innerText = 'Score: ' + finalScore;
+        }
         finalScoreEl.classList.remove('hide');
+        timerEl.innerText = 'Score: ' + finalScore;
         score();
     }
 }
 
 function score(){
+    
     questionContainerEl.classList.add('hide');
+    enterBtnEl.classList.remove('hide');
     resultsEl.innerText = 'All done!';
-    finalScoreEl.innerText = 'Your final score:' + 'score variable';
+    finalScoreEl.innerText = 'Your final score: ' + finalScore;
+    timerEl.innerText = 'Score: ' + finalScore;
     startButtonEl.innerText = 'Restart'; //restart the quiz
     startButtonEl.classList.remove('hide');
+    nameForm.classList.remove('hide');
     nameEntryEl.classList.remove('hide');
 
 }
 
+//submit function for adding name and storing to local storage
 function submitName(){
-    console.log(nameEntryEl);
-    localStorage.setItem('name',nameEntryEl);
-}
+    
+    // nameForm.addEventListener("submit", function(event){
+        // event.preventDefault();
+
+        var nameText = nameEntryEl.value.trim();
+
+        // Return from function early if submitted todoText is blank
+        if (nameText === "") {
+          return;
+        }
+        savedHighscore.push(nameText);
+        nameEntryEl.value = "";
+        storeHighscore();
+        // nameEntryEl.classList.add('hide');
+        
+        submitName();
+    }
+
+    function storeHighscore() {
+        // Stringify and set name and highscore in localStorage
+        localStorage.setItem("savedHighscore", JSON.stringify(savedHighscore));
+        console.log(savedHighscore);
+      }
+
+
+    // localStorage.setItem('name',nameEntryEl);
+
+    // todoForm.addEventListener("submit", function(event) {
+    //     event.preventDefault();
+      
+    //     var todoText = todoInput.value.trim();
+      
+    //     // Return from function early if submitted todoText is blank
+    //     if (todoText === "") {
+    //       return;
+    //     }
+      
+    //     // Add new todoText to todos array, clear the input
+    //     todos.push(todoText);
+    //     todoInput.value = "";
+      
+    //     // Store updated todos in localStorage, re-render the list
+    //     storeTodos();
+    //     renderTodos();
+    //   });
+
 
 function setStatusClass(element, correct){
     clearStatusClass(element)
